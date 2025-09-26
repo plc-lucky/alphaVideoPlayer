@@ -1,0 +1,57 @@
+{
+  "name": "alpha-video-player-webgl",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "基于 WebGL 的双通道透明视频播放器vue组件，专门用于播放包含透明通道的视频文件。该组件将视频的 RGB 数据和 Alpha 数据分别存储在视频帧的左右两部分，通过 WebGL 着色器技术实现透明视频的播放",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "webgl",
+    "video",
+    "transparent",
+    "alpha",
+    "player",
+    "component"
+  ],
+  "author": "1549107092@qq.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plc-lucky/alphaVideoPlayer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/plc-lucky/alphaVideoPlayer/issues"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@vitejs/plugin-vue": "^5.1.0",
+    "@vue/compiler-sfc": "^3.3.8",
+    "less": "^4.4.1",
+    "rollup": "^4.6.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
