@@ -58,7 +58,7 @@ const isVideoLoaded = ref(false); // 视频是否已加载
 const isVideoPlaying = ref(false); // 视频是否正在播放
 const isPageVisible = ref(true); // 页面是否可见
 
-const emit = defineEmits(["pause", "play", "stop", "ended"]);
+const emit = defineEmits(["pause", "play", "stop", "ended", "load"]);
 
 // 如果loop为0，则无限循环
 const videoLoop = computed(() => props.loop === 0);
@@ -77,9 +77,10 @@ const onVideoLoaded = () => {
     // 初始化原生WebGL播放器
     webglPlayer = new NativeWebGLVideoPlayer(
       canvasContainer.value,
-      videoElement.value
+      videoElement.value,
     );
 
+    emit("load"); // 原生WebGL场景初始化完成
     // 计算并设置响应式尺寸
     const { width, height } = calculateResponsiveSize();
     webglPlayer.resize(width, height);
@@ -285,11 +286,10 @@ defineExpose({
 <style scoped lang="less">
 .shader_video_player_webgl {
   .hidden-video {
-	  display: none;
+    display: none;
   }
 
   .canvas-container {
-
     .loading {
       display: flex;
       flex-direction: column;

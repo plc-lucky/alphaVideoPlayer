@@ -1,8 +1,8 @@
-# AlphaVideoPlayerWebGL 组件文档
+# alpha-video-player 组件文档
 
 ## 概述
 
-`AlphaVideoPlayerWebGL` 是一个基于 WebGL 的双通道透明视频播放器组件，专门用于播放包含透明通道的视频文件。该组件将视频的 RGB 数据和 Alpha 数据分别存储在视频帧的左右两部分，通过 WebGL 着色器技术实现透明视频的播放。
+`alpha-video-player` 是一个基于 WebGL 的双通道透明视频播放器组件，专门用于播放包含透明通道的视频文件。该组件将视频的 RGB 数据和 Alpha 数据分别存储在视频帧的左右两部分，通过 WebGL 着色器技术实现透明视频的播放。
 
 ## 特性
 
@@ -15,18 +15,27 @@
 -   ✅ **跨平台兼容**：兼容 iOS Safari 和其他现代浏览器
 -   ✅ **加载状态**：内置加载动画和状态管理
 
+## 原视频展示
+![AlphaVideoPlayer 原mp4](./src/assets/example.gif)
+
+
+## 系统要求
+
+- **Vue 版本**: >= 2.7.0 （支持 Vue 2.7+ 和 Vue 3）
+- **Node.js**: >= 14.0.0
+
 ## 安装
 
 ### npm 安装
 
 ```bash
-npm install alpha-video-player-webgl
+npm install alpha-video-player
 ```
 
 ### yarn 安装
 
 ```bash
-yarn add alpha-video-player-webgl
+yarn add alpha-video-player
 ```
 
 ### CDN 引入
@@ -35,7 +44,7 @@ yarn add alpha-video-player-webgl
 <!-- 引入 Vue 3 -->
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <!-- 引入组件 -->
-<script src="https://unpkg.com/alpha-video-player-webgl/dist/index.min.js"></script>
+<script src="https://unpkg.com/alpha-video-player-webgl/dist/alphaVideoPlayer.min.js"></script>
 ```
 
 ## 使用方法
@@ -44,21 +53,21 @@ yarn add alpha-video-player-webgl
 
 ```javascript
 import { createApp } from 'vue';
-import AlphaVideoPlayerWebGL from 'alpha-video-player-webgl';
+import alphaVideoPlayer from 'alpha-video-player';
 
 const app = createApp(App);
-app.use(AlphaVideoPlayerWebGL);
+app.use(alphaVideoPlayer);
 app.mount('#app');
 ```
 
 ### 局部引入
 
 ```javascript
-import { AlphaVideoPlayerWebGL } from 'alpha-video-player-webgl';
+import alphaVideoPlayer from 'alpha-video-player';
 
 export default {
   components: {
-    AlphaVideoPlayerWebGL
+    alphaVideoPlayer
   }
 }
 ```
@@ -68,7 +77,7 @@ export default {
 ```vue
 <template>
 	<div>
-		<AlphaVideoPlayerWebGL
+		<alphaVideoPlayer
 			:src="videoUrl"
 			:autoplay="true"
 			:loop="0"
@@ -80,7 +89,7 @@ export default {
 </template>
 
 <script setup>
-import { AlphaVideoPlayerWebGL } from 'alpha-video-player-webgl';
+import alphaVideoPlayer from 'alpha-video-player';
 
 const videoUrl = 'https://example.com/alpha-video.mp4';
 
@@ -103,7 +112,7 @@ const onVideoEnded = () => {
 ```vue
 <template>
 	<div>
-		<AlphaVideoPlayerWebGL ref="videoPlayerRef" :src="videoUrl" :autoplay="false" />
+		<alphaVideoPlayer ref="videoPlayerRef" :src="videoUrl" :autoplay="false" />
 
 		<div class="controls">
 			<button @click="playVideo">播放</button>
@@ -115,7 +124,7 @@ const onVideoEnded = () => {
 
 <script setup>
 import { ref } from 'vue';
-import { AlphaVideoPlayerWebGL } from 'alpha-video-player-webgl';
+import alphaVideoPlayer from 'alpha-video-player';
 
 const videoPlayerRef = ref(null);
 const videoUrl = 'https://example.com/alpha-video.mp4';
@@ -138,14 +147,14 @@ const resetVideo = () => {
 
 ```vue
 <template>
-	<AlphaVideoPlayerWebGL :src="videoUrl">
+	<alphaVideoPlayer :src="videoUrl">
 		<template #loading>
 			<div class="custom-loading">
 				<div class="spinner"></div>
 				<p>正在加载视频...</p>
 			</div>
 		</template>
-	</AlphaVideoPlayerWebGL>
+	</alphaVideoPlayer>
 </template>
 
 <style scoped>
