@@ -49,7 +49,7 @@ yarn add alpha-video-player
 
 ## 使用方法
 
-### Vue 3 全局注册
+### 全局注册（推荐）
 
 ```javascript
 import { createApp } from 'vue';
@@ -60,21 +60,7 @@ app.use(alphaVideoPlayer);
 app.mount('#app');
 ```
 
-### Vue 2 全局注册
-
-```javascript
-import Vue from 'vue';
-import alphaVideoPlayer from 'alpha-video-player';
-
-Vue.use(alphaVideoPlayer);
-
-new Vue({
-  el: '#app',
-  // ...
-});
-```
-
-### 局部引入（Vue 2 & Vue 3 通用）
+### 局部引入
 
 ```javascript
 import alphaVideoPlayer from 'alpha-video-player';
@@ -87,8 +73,6 @@ export default {
 ```
 
 ### 基础用法
-
-#### Vue 3 (Composition API)
 
 ```vue
 <template>
@@ -123,52 +107,7 @@ const onVideoEnded = () => {
 </script>
 ```
 
-#### Vue 2 (Options API)
-
-```vue
-<template>
-	<div>
-		<alphaVideoPlayer
-			:src="videoUrl"
-			:autoplay="true"
-			:loop="0"
-			@play="onVideoPlay"
-			@pause="onVideoPause"
-			@ended="onVideoEnded"
-		/>
-	</div>
-</template>
-
-<script>
-import alphaVideoPlayer from 'alpha-video-player';
-
-export default {
-	components: {
-		alphaVideoPlayer
-	},
-	data() {
-		return {
-			videoUrl: 'https://example.com/alpha-video.mp4'
-		};
-	},
-	methods: {
-		onVideoPlay() {
-			console.log('视频开始播放');
-		},
-		onVideoPause() {
-			console.log('视频暂停');
-		},
-		onVideoEnded() {
-			console.log('视频播放结束');
-		}
-	}
-};
-</script>
-```
-
 ### 使用组件引用控制播放
-
-#### Vue 3 版本
 
 ```vue
 <template>
@@ -200,54 +139,6 @@ const pauseVideo = () => {
 
 const resetVideo = () => {
 	videoPlayerRef.value?.reset();
-};
-</script>
-```
-
-#### Vue 2 版本
-
-```vue
-<template>
-	<div>
-		<alphaVideoPlayer ref="videoPlayerRef" :src="videoUrl" :autoplay="false" />
-
-		<div class="controls">
-			<button @click="playVideo">播放</button>
-			<button @click="pauseVideo">暂停</button>
-			<button @click="resetVideo">重置</button>
-		</div>
-	</div>
-</template>
-
-<script>
-import alphaVideoPlayer from 'alpha-video-player';
-
-export default {
-	components: {
-		alphaVideoPlayer
-	},
-	data() {
-		return {
-			videoUrl: 'https://example.com/alpha-video.mp4'
-		};
-	},
-	methods: {
-		playVideo() {
-			if (this.$refs.videoPlayerRef) {
-				this.$refs.videoPlayerRef.play();
-			}
-		},
-		pauseVideo() {
-			if (this.$refs.videoPlayerRef) {
-				this.$refs.videoPlayerRef.pause();
-			}
-		},
-		resetVideo() {
-			if (this.$refs.videoPlayerRef) {
-				this.$refs.videoPlayerRef.reset();
-			}
-		}
-	}
 };
 </script>
 ```
