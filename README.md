@@ -18,12 +18,6 @@
 ## 原视频展示
 ![AlphaVideoPlayer 原mp4](./src/assets/example.gif)
 
-
-## 系统要求
-
-- **Vue 版本**: >= 2.7.0 （支持 Vue 2.7+ 和 Vue 3）
-- **Node.js**: >= 14.0.0
-
 ## 安装
 
 ### npm 安装
