@@ -49,7 +49,7 @@ yarn add alpha-video-player
 
 ## 使用方法
 
-### 全局注册（推荐）
+### Vue 3 全局注册
 
 ```javascript
 import { createApp } from 'vue';
@@ -60,7 +60,21 @@ app.use(alphaVideoPlayer);
 app.mount('#app');
 ```
 
-### 局部引入
+### Vue 2 全局注册
+
+```javascript
+import Vue from 'vue';
+import alphaVideoPlayer from 'alpha-video-player';
+
+Vue.use(alphaVideoPlayer);
+
+new Vue({
+  el: '#app',
+  // ...
+});
+```
+
+### 局部引入（Vue 2 & Vue 3 通用）
 
 ```javascript
 import alphaVideoPlayer from 'alpha-video-player';
@@ -73,6 +87,8 @@ export default {
 ```
 
 ### 基础用法
+
+#### Vue 3 (Composition API)
 
 ```vue
 <template>
@@ -107,7 +123,52 @@ const onVideoEnded = () => {
 </script>
 ```
 
+#### Vue 2 (Options API)
+
+```vue
+<template>
+	<div>
+		<alphaVideoPlayer
+			:src="videoUrl"
+			:autoplay="true"
+			:loop="0"
+			@play="onVideoPlay"
+			@pause="onVideoPause"
+			@ended="onVideoEnded"
+		/>
+	</div>
+</template>
+
+<script>
+import alphaVideoPlayer from 'alpha-video-player';
+
+export default {
+	components: {
+		alphaVideoPlayer
+	},
+	data() {
+		return {
+			videoUrl: 'https://example.com/alpha-video.mp4'
+		};
+	},
+	methods: {
+		onVideoPlay() {
+			console.log('视频开始播放');
+		},
+		onVideoPause() {
+			console.log('视频暂停');
+		},
+		onVideoEnded() {
+			console.log('视频播放结束');
+		}
+	}
+};
+</script>
+```
+
 ### 使用组件引用控制播放
+
+#### Vue 3 版本
 
 ```vue
 <template>
@@ -139,6 +200,54 @@ const pauseVideo = () => {
 
 const resetVideo = () => {
 	videoPlayerRef.value?.reset();
+};
+</script>
+```
+
+#### Vue 2 版本
+
+```vue
+<template>
+	<div>
+		<alphaVideoPlayer ref="videoPlayerRef" :src="videoUrl" :autoplay="false" />
+
+		<div class="controls">
+			<button @click="playVideo">播放</button>
+			<button @click="pauseVideo">暂停</button>
+			<button @click="resetVideo">重置</button>
+		</div>
+	</div>
+</template>
+
+<script>
+import alphaVideoPlayer from 'alpha-video-player';
+
+export default {
+	components: {
+		alphaVideoPlayer
+	},
+	data() {
+		return {
+			videoUrl: 'https://example.com/alpha-video.mp4'
+		};
+	},
+	methods: {
+		playVideo() {
+			if (this.$refs.videoPlayerRef) {
+				this.$refs.videoPlayerRef.play();
+			}
+		},
+		pauseVideo() {
+			if (this.$refs.videoPlayerRef) {
+				this.$refs.videoPlayerRef.pause();
+			}
+		},
+		resetVideo() {
+			if (this.$refs.videoPlayerRef) {
+				this.$refs.videoPlayerRef.reset();
+			}
+		}
+	}
 };
 </script>
 ```
@@ -230,13 +339,6 @@ const resetVideo = () => {
     - 右半部分：RGB 通道（颜色信息）
 4. **分辨率**：推荐使用偶数宽度，如 1920x1080、1280x720 等
 
-### 视频制作建议
-
-```bash
-# 使用 FFmpeg 制作双通道透明视频示例
-ffmpeg -i rgb_video.mp4 -i alpha_video.mp4 -filter_complex "[0:v][1:v]hstack=inputs=2" output.mp4
-```
-
 ## 技术实现
 
 ### WebGL 着色器
@@ -314,13 +416,3 @@ A: 组件已针对 iOS Safari 进行优化，包括：
 -   特殊的元数据加载处理
 -   `playsinline` 属性防止全屏播放
 -   兼容性事件监听
-
-## 更新日志
-
-### v1.0.0
-
--   初始版本发布
--   支持双通道透明视频播放
--   WebGL 渲染实现
--   响应式设计支持
--   iOS Safari 兼容性优化

@@ -2,13 +2,6 @@
 
 ## 发布前准备
 
-### 1. 更新 package.json 信息
-- [ ] 确认包名 `alpha-video-player-webgl` 是否可用
-- [ ] 更新作者信息 `author` 字段
-- [ ] 更新仓库地址 `repository.url`
-- [ ] 更新 bug 反馈地址 `bugs.url`
-- [ ] 更新主页地址 `homepage`
-
 ### 2. 安装依赖并构建
 ```bash
 npm install
@@ -26,7 +19,7 @@ npm run build
 ### 4. 版本管理
 ```bash
 # 第一次发布
-npm version 1.0.0
+npm version 0.1.0
 
 # 后续版本更新
 npm version patch  # 修复bug: 1.0.0 -> 1.0.1
