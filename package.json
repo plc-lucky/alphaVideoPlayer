@@ -1,5 +1,5 @@
 {
-  "name": "alpha-video-player",
+  "name": "alpha-player-webgl",
   "version": "0.1.0",
   "type": "module",
   "description": "基于 WebGL 的双通道透明视频播放器vue组件，专门用于播放包含透明通道的视频文件。该组件将视频的 RGB 数据和 Alpha 数据分别存储在视频帧的左右两部分，通过 WebGL 着色器技术实现透明视频的播放",

@@ -1,8 +1,8 @@
-# alpha-video-player 组件文档
+# alpha-player-webgl 组件文档
 
 ## 概述
 
-`alpha-video-player` 是一个基于 WebGL 的双通道透明视频播放器组件，专门用于播放包含透明通道的视频文件。该组件将视频的 RGB 数据和 Alpha 数据分别存储在视频帧的左右两部分，通过 WebGL 着色器技术实现透明视频的播放。
+`alpha-player-webgl` 是一个基于 WebGL 的双通道透明视频播放器组件，专门用于播放包含透明通道的视频文件。该组件将视频的 RGB 数据和 Alpha 数据分别存储在视频帧的左右两部分，通过 WebGL 着色器技术实现透明视频的播放。
 
 ## 特性
 
@@ -29,55 +29,62 @@
 ### npm 安装
 
 ```bash
-npm install alpha-video-player
+npm install alpha-player-webgl
 ```
 
 ### yarn 安装
 
 ```bash
-yarn add alpha-video-player
-```
-
-### CDN 引入
-
-```html
-<!-- 引入 Vue 3 -->
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<!-- 引入组件 -->
-<script src="https://unpkg.com/alpha-video-player-webgl/dist/alphaVideoPlayer.min.js"></script>
+yarn add alpha-player-webgl
 ```
 
 ## 使用方法
 
-### 全局注册（推荐）
+### Vue 3 全局注册
 
 ```javascript
 import { createApp } from 'vue';
-import alphaVideoPlayer from 'alpha-video-player';
+import AlphaPlayerWebgl from 'alpha-player-webgl';
 
 const app = createApp(App);
-app.use(alphaVideoPlayer);
+app.use(AlphaPlayerWebgl);
 app.mount('#app');
 ```
 
-### 局部引入
+### Vue 2 全局注册
 
 ```javascript
-import alphaVideoPlayer from 'alpha-video-player';
+import Vue from 'vue';
+import AlphaPlayerWebgl from 'alpha-player-webgl';
+
+Vue.use(AlphaPlayerWebgl);
+
+new Vue({
+  el: '#app',
+  // ...
+});
+```
+
+### 局部引入（Vue 2 & Vue 3 通用）
+
+```javascript
+import AlphaPlayerWebgl from 'alpha-player-webgl';
 
 export default {
   components: {
-    alphaVideoPlayer
+    AlphaPlayerWebgl
   }
 }
 ```
 
 ### 基础用法
 
+#### Vue 3 (Composition API)
+
 ```vue
 <template>
 	<div>
-		<alphaVideoPlayer
+		<AlphaPlayerWebgl
 			:src="videoUrl"
 			:autoplay="true"
 			:loop="0"
@@ -89,7 +96,7 @@ export default {
 </template>
 
 <script setup>
-import alphaVideoPlayer from 'alpha-video-player';
+import AlphaPlayerWebgl from 'alpha-player-webgl';
 
 const videoUrl = 'https://example.com/alpha-video.mp4';
 
@@ -107,12 +114,57 @@ const onVideoEnded = () => {
 </script>
 ```
 
-### 使用组件引用控制播放
+#### Vue 2 (Options API)
 
 ```vue
 <template>
 	<div>
-		<alphaVideoPlayer ref="videoPlayerRef" :src="videoUrl" :autoplay="false" />
+		<AlphaPlayerWebgl
+			:src="videoUrl"
+			:autoplay="true"
+			:loop="0"
+			@play="onVideoPlay"
+			@pause="onVideoPause"
+			@ended="onVideoEnded"
+		/>
+	</div>
+</template>
+
+<script>
+import AlphaPlayerWebgl from 'alpha-player-webgl';
+
+export default {
+	components: {
+		AlphaPlayerWebgl
+	},
+	data() {
+		return {
+			videoUrl: 'https://example.com/alpha-video.mp4'
+		};
+	},
+	methods: {
+		onVideoPlay() {
+			console.log('视频开始播放');
+		},
+		onVideoPause() {
+			console.log('视频暂停');
+		},
+		onVideoEnded() {
+			console.log('视频播放结束');
+		}
+	}
+};
+</script>
+```
+
+### 使用组件引用控制播放
+
+#### Vue 3 版本
+
+```vue
+<template>
+	<div>
+		<AlphaPlayerWebgl ref="videoPlayerRef" :src="videoUrl" :autoplay="false" />
 
 		<div class="controls">
 			<button @click="playVideo">播放</button>
@@ -124,7 +176,7 @@ const onVideoEnded = () => {
 
 <script setup>
 import { ref } from 'vue';
-import alphaVideoPlayer from 'alpha-video-player';
+import AlphaPlayerWebgl from 'alpha-player-webgl';
 
 const videoPlayerRef = ref(null);
 const videoUrl = 'https://example.com/alpha-video.mp4';
@@ -143,18 +195,66 @@ const resetVideo = () => {
 </script>
 ```
 
+#### Vue 2 版本
+
+```vue
+<template>
+	<div>
+		<AlphaPlayerWebgl ref="videoPlayerRef" :src="videoUrl" :autoplay="false" />
+
+		<div class="controls">
+			<button @click="playVideo">播放</button>
+			<button @click="pauseVideo">暂停</button>
+			<button @click="resetVideo">重置</button>
+		</div>
+	</div>
+</template>
+
+<script>
+import AlphaPlayerWebgl from 'alpha-player-webgl';
+
+export default {
+	components: {
+		AlphaPlayerWebgl
+	},
+	data() {
+		return {
+			videoUrl: 'https://example.com/alpha-video.mp4'
+		};
+	},
+	methods: {
+		playVideo() {
+			if (this.$refs.videoPlayerRef) {
+				this.$refs.videoPlayerRef.play();
+			}
+		},
+		pauseVideo() {
+			if (this.$refs.videoPlayerRef) {
+				this.$refs.videoPlayerRef.pause();
+			}
+		},
+		resetVideo() {
+			if (this.$refs.videoPlayerRef) {
+				this.$refs.videoPlayerRef.reset();
+			}
+		}
+	}
+};
+</script>
+```
+
 ### 自定义加载动画
 
 ```vue
 <template>
-	<alphaVideoPlayer :src="videoUrl">
+	<AlphaPlayerWebgl :src="videoUrl">
 		<template #loading>
 			<div class="custom-loading">
 				<div class="spinner"></div>
 				<p>正在加载视频...</p>
 			</div>
 		</template>
-	</alphaVideoPlayer>
+	</AlphaPlayerWebgl>
 </template>
 
 <style scoped>

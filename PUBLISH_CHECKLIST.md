@@ -43,24 +43,24 @@ npm publish --tag beta
 
 ### 1. 检查包是否发布成功
 ```bash
-npm info alpha-video-player-webgl
+npm info alpha-player-webgl
 ```
 
 ### 2. 在新项目中测试安装
 ```bash
-npm install alpha-video-player-webgl
+npm install alpha-player-webgl
 ```
 
 ### 3. 测试不同的引入方式
-- ES Module: `import AlphaVideoPlayerWebGL from 'alpha-video-player-webgl'`
-- CommonJS: `const AlphaVideoPlayerWebGL = require('alpha-video-player-webgl')`
-- CDN: `<script src="https://unpkg.com/alpha-video-player-webgl"></script>`
+- ES Module: `import AlphaVideoPlayerWebGL from 'alpha-player-webgl'`
+- CommonJS: `const AlphaVideoPlayerWebGL = require('alpha-player-webgl')`
+- CDN: `<script src="https://unpkg.com/alpha-player-webgl"></script>`
 
 ## 常见问题
 
 ### 包名已存在
-如果包名 `alpha-video-player-webgl` 已被占用，可以考虑：
-- `@yourusername/alpha-video-player-webgl`
+如果包名 `alpha-player-webgl` 已被占用，可以考虑：
+- `@yourusername/alpha-player-webgl`
 - `vue-alpha-video-player`
 - `webgl-alpha-video-player`
 

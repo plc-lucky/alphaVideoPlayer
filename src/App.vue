@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--组件用法-->
-    <AlphaVideoPlayer
+    <AlphaPlayerWebgl
       style="width: 200px"
       ref="shaderPlayer"
       autoplay
@@ -14,7 +14,7 @@
       <!--			<template #loading>
 							<p style="font-size: 14px">视频加载中...</p>
 						</template>-->
-    </AlphaVideoPlayer>
+    </AlphaPlayerWebgl>
 
     <div style="display: flex; justify-content: center">
       <button @click="play">播放</button>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import AlphaVideoPlayer from "../components/alphaVideoPlayer/alphaVideoPlayerWebGL.vue";
+import AlphaPlayerWebgl from "../components/alpha-player-webgl/alpha-player-webgl.vue";
 import { ref } from "vue";
 
 const shaderPlayer = ref(null);
